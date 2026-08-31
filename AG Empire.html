@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
+<title>AG Empire — Build Beyond Limits</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#070707;
+    color:#fff;
+    overflow-x:hidden;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+button{
+    font:inherit;
+    cursor:pointer;
+}
+
+/* LOADING SCREEN */
+#loader{
+    position:fixed;
+    inset:0;
+    background:#050505;
+    z-index:9999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    transition:opacity .7s ease, visibility .7s ease;
+}
+
+#loader.hide{
+    opacity:0;
+    visibility:hidden;
+}
+
+.loader-logo{
+    font-size:55px;
+    font-weight:900;
+    letter-spacing:-4px;
+}
+
+.loader-logo span{
+    color:#c9a227;
+}
+
+.loader-line{
+    width:160px;
+    height:3px;
+    background:#222;
+    margin-top:25px;
+    overflow:hidden;
+    border-radius:20px;
+}
+
+.loader-line div{
+    width:50%;
+    height:100%;
+    background:#c9a227;
+    animation:loading 1.2s infinite;
+}
+
+@keyframes loading{
+    from{transform:translateX(-100%)}
+    to{transform:translateX(300%)}
+}
+
+/* NAVBAR */
+nav{
+    position:fixed;
+    top:0;
+    width:100%;
+    height:75px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 7%;
+    z-index:1000;
+    background:rgba(5,5,5,.65);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.logo{
+    font-size:27px;
+    font-weight:900;
+    letter-spacing:-1px;
+}
+
+.logo span{
+    color:#c9a227;
+}
+
+.nav-links{
+    display:flex;
+    gap:30px;
+    list-style:none;
+}
+
+.nav-links a{
+    color:#aaa;
+    font-size:14px;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:#fff;
+}
+
+.nav-button{
+    border:1px solid #c9a227;
+    padding:10px 18px;
+    border-radius:30px;
+    color:#c9a227;
+    font-size:13px;
+}
+
+.menu{
+    display:none;
+    font-size:27px;
+}
+
+/* HERO */
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:130px 7% 80px;
+    position:relative;
+    overflow:hidden;
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    width:600px;
+    height:600px;
+    background:radial-gradient(circle,rgba(201,162,39,.17),transparent 65%);
+    top:-150px;
+    left:50%;
+    transform:translateX(-50%);
+}
+
+.hero-content{
+    position:relative;
+    max-width:950px;
+    z-index:2;
+}
+
+.badge{
+    display:inline-block;
+    border:1px solid rgba(201,162,39,.5);
+    background:rgba(201,162,39,.08);
+    color:#d9b73b;
+    padding:9px 17px;
+    border-radius:50px;
+    font-size:12px;
+    letter-spacing:2px;
+    margin-bottom:25px;
+}
+
+.hero h1{
+    font-size:clamp(55px,9vw,115px);
+    line-height:.88;
+    letter-spacing:-7px;
+    font-weight:900;
+}
+
+.hero h1 span{
+    color:#c9a227;
+}
+
+.hero p{
+    color:#999;
+    max-width:650px;
+    margin:30px auto;
+    line-height:1.8;
+    font-size:17px;
+}
+
+.buttons{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    padding:15px 26px;
+    border-radius:35px;
+    border:1px solid #333;
+    transition:.3s;
+    font-weight:bold;
+}
+
+.btn-primary{
+    background:#c9a227;
+    color:#050505;
+    border-color:#c9a227;
+}
+
+.btn-primary:hover{
+    transform:translateY(-4px);
+    box-shadow:0 15px 35px rgba(201,162,39,.25);
+}
+
+.btn-dark:hover{
+    border-color:#c9a227;
+    color:#c9a227;
+}
+
+/* SECTION */
+section{
+    padding:100px 7%;
+}
+
+.section-title{
+    max-width:750px;
+    margin-bottom:55px;
+}
+
+.small-title{
+    color:#c9a227;
+    text-transform:uppercase;
+    letter-spacing:3px;
+    font-size:12px;
+    margin-bottom:14px;
+}
+
+.section-title h2{
+    font-size:clamp(35px,5vw,65px);
+    line-height:1;
+    letter-spacing:-3px;
+}
+
+.section-title p{
+    color:#888;
+    margin-top:20px;
+    line-height:1.7;
+}
+
+/* COMPANY CARDS */
+.empire-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.empire-card{
+    min-height:280px;
+    border:1px solid #202020;
+    background:linear-gradient(145deg,#111,#090909);
+    border-radius:25px;
+    padding:30px;
+    position:relative;
+    overflow:hidden;
+    transition:.4s;
+}
+
+.empire-card:hover{
+    transform:translateY(-8px);
+    border-color:#80691c;
+}
+
+.icon{
+    width:55px;
+    height:55px;
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#171717;
+    color:#c9a227;
+    font-size:25px;
+    margin-bottom:35px;
+}
+
+.empire-card h3{
+    font-size:25px;
+    margin-bottom:12px;
+}
+
+.empire-card p{
+    color:#888;
+    line-height:1.6;
+}
+
+.card-number{
+    position:absolute;
+    right:25px;
+    top:20px;
+    color:#333;
+    font-size:40px;
+    font-weight:900;
+}
+
+/* STORE */
+.store{
+    background:#0b0b0b;
+}
+
+.products{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+}
+
+.product{
+    background:#111;
+    border:1px solid #202020;
+    border-radius:20px;
+    overflow:hidden;
+    transition:.3s;
+}
+
+.product:hover{
+    transform:translateY(-7px);
+}
+
+.product-image{
+    height:280px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:
+    radial-gradient(circle at 50% 40%,#252525,#0d0d0d 70%);
+    position:relative;
+}
+
+.shirt{
+    width:150px;
+    height:170px;
+    background:#171717;
+    clip-path:polygon(20% 0,38% 10%,62% 10%,80% 0,100% 25%,82% 38%,75% 25%,75% 100%,25% 100%,25% 25%,18% 38%,0 25%);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#c9a227;
+    font-size:23px;
+    font-weight:900;
+}
+
+.product-info{
+    padding:20px;
+}
+
+.product-info h3{
+    margin-bottom:7px;
+}
+
+.price{
+    color:#c9a227;
+    font-weight:bold;
+}
+
+.buy{
+    width:100%;
+    margin-top:16px;
+    padding:12px;
+    border-radius:10px;
+    border:1px solid #333;
+    background:#191919;
+    color:white;
+}
+
+.buy:hover{
+    background:#c9a227;
+    color:#000;
+}
+
+/* FEATURE BANNER */
+.banner{
+    margin-top:25px;
+    min-height:360px;
+    border-radius:30px;
+    border:1px solid #272727;
+    background:
+    radial-gradient(circle at 80% 20%,rgba(201,162,39,.2),transparent 35%),
+    linear-gradient(120deg,#101010,#070707);
+    display:flex;
+    align-items:center;
+    padding:55px;
+}
+
+.banner-content{
+    max-width:600px;
+}
+
+.banner h2{
+    font-size:clamp(35px,5vw,65px);
+    letter-spacing:-3px;
+}
+
+.banner p{
+    color:#888;
+    line-height:1.7;
+    margin:20px 0;
+}
+
+/* AI */
+.ai-section{
+    text-align:center;
+}
+
+.ai-box{
+    max-width:900px;
+    margin:auto;
+    padding:45px;
+    border:1px solid #292929;
+    border-radius:30px;
+    background:linear-gradient(145deg,#121212,#080808);
+}
+
+.ai-orb{
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    margin:auto auto 25px;
+    background:radial-gradient(circle,#fff3b0,#c9a227 30%,#614c0d 65%,transparent 70%);
+    box-shadow:0 0 70px rgba(201,162,39,.25);
+    animation:pulse 3s infinite;
+}
+
+@keyframes pulse{
+    50%{transform:scale(1.1);box-shadow:0 0 100px rgba(201,162,39,.35)}
+}
+
+.ai-box h2{
+    font-size:40px;
+}
+
+.ai-box p{
+    color:#888;
+    margin:15px auto 25px;
+    max-width:600px;
+    line-height:1.7;
+}
+
+/* STATS */
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    border-top:1px solid #222;
+    border-bottom:1px solid #222;
+}
+
+.stat{
+    text-align:center;
+    padding:40px 15px;
+    border-right:1px solid #222;
+}
+
+.stat:last-child{
+    border:0;
+}
+
+.stat h3{
+    color:#c9a227;
+    font-size:40px;
+}
+
+.stat p{
+    color:#777;
+    margin-top:7px;
+}
+
+/* NEWSLETTER */
+.newsletter{
+    text-align:center;
+    max-width:850px;
+    margin:auto;
+}
+
+.newsletter h2{
+    font-size:45px;
+}
+
+.newsletter p{
+    color:#888;
+    margin:15px 0 25px;
+}
+
+.email-box{
+    display:flex;
+    max-width:550px;
+    margin:auto;
+    background:#111;
+    border:1px solid #292929;
+    border-radius:50px;
+    padding:6px;
+}
+
+.email-box input{
+    flex:1;
+    background:transparent;
+    border:0;
+    outline:0;
+    color:white;
+    padding:0 20px;
+}
+
+.email-box button{
+    border:0;
+    border-radius:40px;
+    background:#c9a227;
+    padding:13px 20px;
+    font-weight:bold;
+}
+
+/* FOOTER */
+footer{
+    padding:70px 7% 30px;
+    border-top:1px solid #1d1d1d;
+}
+
+.footer-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1fr;
+    gap:40px;
+}
+
+.footer-brand p{
+    color:#777;
+    max-width:350px;
+    line-height:1.7;
+    margin-top:15px;
+}
+
+footer h4{
+    margin-bottom:18px;
+}
+
+footer li{
+    list-style:none;
+    color:#777;
+    margin-bottom:12px;
+    font-size:14px;
+}
+
+footer li:hover{
+    color:#c9a227;
+}
+
+.copyright{
+    border-top:1px solid #1c1c1c;
+    margin-top:50px;
+    padding-top:25px;
+    color:#555;
+    font-size:13px;
+    display:flex;
+    justify-content:space-between;
+}
+
+/* MOBILE */
+@media(max-width:850px){
+
+    .nav-links{
+        display:none;
+        position:absolute;
+        top:75px;
+        left:0;
+        width:100%;
+        background:#080808;
+        flex-direction:column;
+        padding:25px 7%;
+        border-bottom:1px solid #222;
+    }
+
+    .nav-links.active{
+        display:flex;
+    }
+
+    .menu{
+        display:block;
+    }
+
+    .nav-button{
+        display:none;
+    }
+
+    .empire-grid{
+        grid-template-columns:1fr;
+    }
+
+    .products{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .stat:nth-child(2){
+        border-right:0;
+    }
+
+    .stat{
+        border-bottom:1px solid #222;
+    }
+
+    .banner{
+        padding:30px;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .copyright{
+        flex-direction:column;
+        gap:10px;
+    }
+}
+
+@media(max-width:500px){
+
+    section{
+        padding:75px 5%;
+    }
+
+    nav{
+        padding:0 5%;
+    }
+
+    .hero{
+        padding-left:5%;
+        padding-right:5%;
+    }
+
+    .hero h1{
+        letter-spacing:-4px;
+    }
+
+    .products{
+        grid-template-columns:1fr;
+    }
+
+    .product-image{
+        height:320px;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr;
+    }
+
+    .email-box{
+        border-radius:15px;
+    }
+
+    .email-box button{
+        border-radius:10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOADING -->
+<div id="loader">
+    <div class="loader-logo">AG<span>.</span></div>
+    <div class="loader-line"><div></div></div>
+</div>
+
+<!-- NAVIGATION -->
+<nav>
+    <a href="#home" class="logo">AG<span>EMPIRE</span></a>
+
+    <ul class="nav-links" id="navLinks">
+        <li><a href="#about">Empire</a></li>
+        <li><a href="#store">Store</a></li>
+        <li><a href="#ai">AG AI</a></li>
+        <li><a href="#future">Future</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <a href="#store" class="nav-button">SHOP NOW</a>
+
+    <div class="menu" onclick="toggleMenu()">☰</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+    <div class="hero-content">
+
+        <div class="badge">THE NEXT GENERATION OF AG</div>
+
+        <h1>
+            BUILD<br>
+            <span>BEYOND</span><br>
+            LIMITS.
+        </h1>
+
+        <p>
+            AG Empire is a next-generation brand building products,
+            technology, artificial intelligence and digital experiences
+            designed for the future.
+        </p>
+
+        <div class="buttons">
+            <a href="#store" class="btn btn-primary">Explore AG Store →</a>
+            <a href="#about" class="btn btn-dark">Discover Empire</a>
+        </div>
+
+    </div>
+</section>
+
+<!-- COMPANY -->
+<section id="about">
+
+    <div class="section-title">
+        <div class="small-title">One Empire. Multiple Worlds.</div>
+        <h2>We're building more than a brand.</h2>
+        <p>
+            AG Empire is designed as a parent company that can grow
+            into multiple powerful businesses.
+        </p>
+    </div>
+
+    <div class="empire-grid">
+
+        <div class="empire-card">
+            <div class="card-number">01</div>
+            <div class="icon">🛍</div>
+            <h3>AG Store</h3>
+            <p>
+                Premium fashion, accessories, lifestyle products
+                and print-on-demand collections.
+            </p>
+        </div>
+
+        <div class="empire-card">
+            <div class="card-number">02</div>
+            <div class="icon">✦</div>
+            <h3>AG AI</h3>
+            <p>
+                Artificial intelligence tools built to help people
+                create, learn, work and grow.
+            </p>
+        </div>
+
+        <div class="empire-card">
+            <div class="card-number">03</div>
+            <div class="icon">⚡</div>
+            <h3>AG Digital</h3>
+            <p>
+                Digital products, software, websites and future
+                technology ventures.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<!-- STORE -->
+<section class="store" id="store">
+
+    <div class="section-title">
+        <div class="small-title">AG Store</div>
+        <h2>Wear the Empire.</h2>
+        <p>
+            Our first product line starts with premium print-on-demand
+            fashion made for people who think beyond limits.
+        </p>
+    </div>
+
+    <div class="products">
+
+        <div class="product">
+            <div class="product-image">
+                <div class="shirt">AG</div>
+            </div>
+            <div class="product-info">
+                <h3>AG Signature Tee</h3>
+                <div class="price">₦25,000</div>
+                <button class="buy" onclick="addCart('AG Signature Tee')">
+                    Add to Cart
+                </button>
+            </div>
+        </div>
+
+        <div class="product">
+            <div class="product-image">
+                <div class="shirt">AE</div>
+            </div>
+            <div class="product-info">
+                <h3>Empire Oversized Tee</h3>
+                <div class="price">₦30,000</div>
+                <button class="buy" onclick="addCart('Empire Oversized Tee')">
+                    Add to Cart
+                </button>
+            </div>
+        </div>
+
+        <div class="product">
+            <div class="product-image">
+                <div class="shirt">AG</div>
+            </div>
+            <div class="product-info">
+                <h3>Empire Hoodie</h3>
+                <div class="price">₦45,000</div>
+                <button class="buy" onclick="addCart('Empire Hoodie')">
+                    Add to Cart
+                </button>
+            </div>
+        </div>
+
+        <div class="product">
+            <div class="product-image">
+                <div class="shirt">∞</div>
+            </div>
+            <div class="product-info">
+                <h3>Beyond Limits Tee</h3>
+                <div class="price">₦28,000</div>
+                <button class="buy" onclick="addCart('Beyond Limits Tee')">
+                    Add to Cart
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="banner">
+        <div class="banner-content">
+            <div class="small-title">First Collection</div>
+            <h2>Made for the ones who refuse to stay ordinary.</h2>
+            <p>
+                The AG Empire collection represents ambition,
+                creativity and the mindset of building something
+                bigger than yourself.
+            </p>
+            <a href="#contact" class="btn btn-primary">
+                Join the Empire
+            </a>
+        </div>
+    </div>
+
+</section>
+
+<!-- STATS -->
+<section>
+
+    <div class="stats">
+
+        <div class="stat">
+            <h3>01</h3>
+            <p>Empire Started</p>
+        </div>
+
+        <div class="stat">
+            <h3>∞</h3>
+            <p>Future Possibilities</p>
+        </div>
+
+        <div class="stat">
+            <h3>AI</h3>
+            <p>Technology</p>
+        </div>
+
+        <div class="stat">
+            <h3>24/7</h3>
+            <p>Building</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- AI -->
+<section class="ai-section" id="ai">
+
+    <div class="section-title" style="margin-left:auto;margin-right:auto;">
+        <div class="small-title">Coming Soon</div>
+        <h2>Meet AG AI.</h2>
+        <p>
+            An intelligent ecosystem designed to help you create,
+            learn, work and build.
+        </p>
+    </div>
+
+    <div class="ai-box">
+
+        <div class="ai-orb"></div>
+
+        <h2>Your AI. Everything you need.</h2>
+
+        <p>
+            AI chat, writing, image generation, study assistance,
+            document tools, translation, business tools and more.
+        </p>
+
+        <button class="btn btn-primary" onclick="aiComingSoon()">
+            Explore AG AI
+        </button>
+
+    </div>
+
+</section>
+
+<!-- FUTURE -->
+<section id="future">
+
+    <div class="section-title">
+        <div class="small-title">The Vision</div>
+        <h2>Today a store. Tomorrow an empire.</h2>
+        <p>
+            AG Empire starts small, but the vision is much bigger:
+            technology, fashion, digital products, AI and new
+            businesses built under one powerful identity.
+        </p>
+    </div>
+
+    <div class="empire-grid">
+
+        <div class="empire-card">
+            <div class="icon">01</div>
+            <h3>Build</h3>
+            <p>
+                Start with the AG Store and create the foundation.
+            </p>
+        </div>
+
+        <div class="empire-card">
+            <div class="icon">02</div>
+            <h3>Grow</h3>
+            <p>
+                Build an audience, improve products and expand online.
+            </p>
+        </div>
+
+        <div class="empire-card">
+            <div class="icon">03</div>
+            <h3>Expand</h3>
+            <p>
+                Launch AG AI and future AG businesses.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- NEWSLETTER -->
+<section id="contact">
+
+    <div class="newsletter">
+
+        <div class="small-title">Join AG Empire</div>
+
+        <h2>Be part of what's next.</h2>
+
+        <p>
+            Get updates about new products, collections,
+            technology and AG AI.
+        </p>
+
+        <div class="email-box">
+            <input type="email" id="email" placeholder="Enter your email">
+            <button onclick="subscribe()">Join</button>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+
+    <div class="footer-grid">
+
+        <div class="footer-brand">
+            <div class="logo">AG<span>EMPIRE</span></div>
+
+            <p>
+                Building products, technology and experiences
+                for the next generation.
+            </p>
+        </div>
+
+        <div>
+            <h4>Empire</h4>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#future">Vision</a></li>
+                <li><a href="#ai">AG AI</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <h4>Store</h4>
+            <ul>
+                <li><a href="#store">Shop</a></li>
+                <li><a href="#store">Collections</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <h4>Social</h4>
+            <ul>
+                <li>TikTok</li>
+                <li>Instagram</li>
+                <li>YouTube</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="copyright">
+        <span>© 2026 AG Empire. All rights reserved.</span>
+        <span>Built for the future.</span>
+    </div>
+
+</footer>
+
+<script>
+
+/* LOADING SCREEN */
+window.addEventListener("load",function(){
+    setTimeout(function(){
+        document.getElementById("loader").classList.add("hide");
+    },1200);
+});
+
+/* MOBILE MENU */
+function toggleMenu(){
+    document.getElementById("navLinks").classList.toggle("active");
+}
+
+/* CART */
+let cart = [];
+
+function addCart(product){
+
+    cart.push(product);
+
+    alert(
+        product +
+        " has been added to your cart.\n\n" +
+        "Cart items: " + cart.length
+    );
+}
+
+/* AI */
+function aiComingSoon(){
+
+    alert(
+        "AG AI is coming soon.\n\n" +
+        "We're building your AI. Everything you need."
+    );
+}
+
+/* NEWSLETTER */
+function subscribe(){
+
+    let email = document.getElementById("email").value;
+
+    if(email === ""){
+        alert("Please enter your email.");
+        return;
+    }
+
+    if(!email.includes("@")){
+        alert("Please enter a valid email.");
+        return;
+    }
+
+    alert(
+        "Welcome to AG Empire!\n\n" +
+        "You're now on the list."
+    );
+
+    document.getElementById("email").value="";
+}
+
+/* CLOSE MOBILE MENU */
+document.querySelectorAll(".nav-links a").forEach(function(link){
+
+    link.addEventListener("click",function(){
+        document.getElementById("navLinks").classList.remove("active");
+    });
+
+});
+
+</script>
+
+</body>
+</html>
